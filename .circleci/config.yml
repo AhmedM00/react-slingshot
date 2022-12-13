@@ -23,7 +23,7 @@ jobs:
       - restore_cache:
           keys:
             - "npm-dep"
-      - run: npm i
+      #- run: npm i
       - run: npm run test 
 
   analyze:
