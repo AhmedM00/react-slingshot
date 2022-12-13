@@ -13,7 +13,7 @@ jobs:
       - run: npm i
       - save_cache:
           key: "npm-dep"
-          paths: /src/node_module
+          paths: ~/src/node_module
       - run: npm run lint
 
   test:
@@ -23,7 +23,7 @@ jobs:
       - restore_cache:
           keys:
             - "npm-dep"
-      #- run: npm i
+      - run: npm i
       - run: npm run test 
 
   analyze:
