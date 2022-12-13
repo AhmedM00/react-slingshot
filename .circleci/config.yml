@@ -9,6 +9,7 @@ jobs:
     <<: *default_docker
     steps:
       - checkout
+      - run: pwd
       - run: npm i
       - save_cache:
           key: "npm-dep"
