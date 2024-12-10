@@ -1,49 +1,40 @@
 version: 2.1
 
-default_docker: &default_docker
-  docker:
-    - image: circleci/node:13.8.0
-
 jobs:
   build:
-    <<: *default_docker
+    docker:
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run: pwd
       - run: npm i
       - save_cache:
-          key: "npm-dep"
-          paths: ~/dada/src/node_module
+          paths:
+            - /src/node_packages
+          key: node_packages
       - run: npm run lint
-
   test:
-    <<: *default_docker
+    docker:
+        - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - "npm-dep"
+      - presist_cache:
+          key: node_packages
       - run: npm i
-      - run: npm run test 
-
+      - run: npm run test
   analyze:
-    <<: *default_docker
+    docker:
+      - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - "npm-dep"
       - run: npm audit
 
-
 workflows:
-  ma-work-flow:
+  Pipelinohh:
     jobs:
       - build
       - test:
-          requires: 
+          requires:
             - build
-      - analyze:
-          requires: 
+      - audit:
+          requires:
             - test
-      
